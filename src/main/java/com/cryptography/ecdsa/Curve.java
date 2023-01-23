@@ -1,7 +1,6 @@
 package com.cryptography.ecdsa;
 
 import java.math.BigInteger;
-import java.util.Random;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ public class Curve {
 
   /**
    * y^2 = *x^3 + a*x + b (mod p)  has been used.
-   *
+   * <p>
    * generator is a generation point.
    */
 

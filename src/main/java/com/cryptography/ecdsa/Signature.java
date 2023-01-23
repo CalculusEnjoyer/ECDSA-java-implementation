@@ -21,11 +21,13 @@ public class Signature {
     BigInteger randNum = Calculator.generateRandomIntegerInOrder(curve.getOrder());
     BigPoint randomSignPoint = Calculator.multiplyPoint(curve.getGenerator(), randNum, curve);
     BigInteger r = randomSignPoint.x.mod(curve.getOrder());
-    BigInteger s = ((numberMessage.add(r.multiply(privateKey.getKey()))).multiply(Calculator.inv(randNum, curve.getOrder()))).mod(curve.getOrder());
+    BigInteger s = ((numberMessage.add(r.multiply(privateKey.getKey()))).multiply(
+        randNum.modInverse(Curve.Secp256k1.getOrder()))).mod(curve.getOrder());
     return new Signature(r, s);
   }
 
-  public static boolean verifyMessage(String message, Signature signature, PublicKey publicKey, Curve curve)
+  public static boolean verifyMessage(String message, Signature signature, PublicKey publicKey,
+      Curve curve)
       throws NoSuchAlgorithmException {
     BigInteger numberMessage = getHashedInteger(message);
     BigInteger r = signature.r;
@@ -44,9 +46,11 @@ public class Signature {
       return false;
     }
 
-    BigInteger w = Calculator.inv(s, curve.getOrder());
-    BigPoint u1 =Calculator.multiplyPoint(curve.getGenerator(), numberMessage.multiply(w).mod(curve.getOrder()), curve);
-    BigPoint u2 = Calculator.multiplyPoint(publicKey.getKeyPoint(), r.multiply(w).mod(curve.getOrder()), curve);
+    BigInteger w = s.modInverse(curve.getOrder());
+    BigPoint u1 = Calculator.multiplyPoint(curve.getGenerator(),
+        numberMessage.multiply(w).mod(curve.getOrder()), curve);
+    BigPoint u2 = Calculator.multiplyPoint(publicKey.getKeyPoint(),
+        r.multiply(w).mod(curve.getOrder()), curve);
     BigPoint v = Calculator.addPoint(u1, u2, curve);
 
     return v.x.mod(curve.getOrder()).equals(r);

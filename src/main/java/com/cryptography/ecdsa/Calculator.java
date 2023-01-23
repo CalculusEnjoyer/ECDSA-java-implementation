@@ -50,25 +50,4 @@ public class Calculator {
     } while (result.compareTo(order) >= 0);   // exclusive of 13
     return result;
   }
-
-  public static BigInteger inv(BigInteger x, BigInteger n) {
-    if (x.compareTo(BigInteger.ZERO) == 0) {
-      return BigInteger.ZERO;
-    }
-    BigInteger lm = BigInteger.ONE;
-    BigInteger hm = BigInteger.ZERO;
-    BigInteger high = n;
-    BigInteger low = x.mod(n);
-    BigInteger r, nm, nw;
-    while (low.compareTo(BigInteger.ONE) > 0) {
-      r = high.divide(low);
-      nm = hm.subtract(lm.multiply(r));
-      nw = high.subtract(low.multiply(r));
-      high = low;
-      hm = lm;
-      low = nw;
-      lm = nm;
-    }
-    return lm.mod(n);
-  }
 }
