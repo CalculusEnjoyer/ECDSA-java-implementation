@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class PublicKey {
 
   public BigPoint keyPoint;

@@ -21,7 +21,7 @@ public class Calculator {
     }
   }
 
-  private static BigPoint addPoint(BigPoint point1, BigPoint point2, Curve curve) {
+  public static BigPoint addPoint(BigPoint point1, BigPoint point2, Curve curve) {
     BigInteger a = (point2.y.subtract(point1.y));
     BigInteger b = (point2.x.subtract(point1.x));
     b = b.modInverse(curve.getP());
@@ -49,5 +49,26 @@ public class Calculator {
       result = new BigInteger(order.bitLength(), rand); // (2^4-1) = 15 is the maximum value
     } while (result.compareTo(order) >= 0);   // exclusive of 13
     return result;
+  }
+
+  public static BigInteger inv(BigInteger x, BigInteger n) {
+    if (x.compareTo(BigInteger.ZERO) == 0) {
+      return BigInteger.ZERO;
+    }
+    BigInteger lm = BigInteger.ONE;
+    BigInteger hm = BigInteger.ZERO;
+    BigInteger high = n;
+    BigInteger low = x.mod(n);
+    BigInteger r, nm, nw;
+    while (low.compareTo(BigInteger.ONE) > 0) {
+      r = high.divide(low);
+      nm = hm.subtract(lm.multiply(r));
+      nw = high.subtract(low.multiply(r));
+      high = low;
+      hm = lm;
+      low = nw;
+      lm = nm;
+    }
+    return lm.mod(n);
   }
 }
