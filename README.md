@@ -1,6 +1,6 @@
 # Java implementation of the Elliptic Curve Digital Signature Algorithm
 
-This is a mini ECDSA library that provides opportunity for creating signatures and validating String messages. In Curve class you can find constant of Secp256k1 curve (btw it is also used in Bitcoin network as well) for quick testing. As well it was covered by unit tests.
+This is a mini ECDSA library that provides opportunity for creating signatures and validating String messages. In Curve class you can find constant of Secp256k1 curve (btw it is also used in Bitcoin network as well) for quick testing. In addition, it was covered by unit tests.
 
 ## Main methods overview
 
