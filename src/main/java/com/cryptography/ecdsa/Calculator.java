@@ -46,8 +46,8 @@ public class Calculator {
     Random rand = new Random();
     BigInteger result;
     do {
-      result = new BigInteger(order.bitLength(), rand); // (2^4-1) = 15 is the maximum value
-    } while (result.compareTo(order) >= 0);   // exclusive of 13
+      result = new BigInteger(order.bitLength(), rand);
+    } while (result.compareTo(order) >= 0);
     return result;
   }
 }
